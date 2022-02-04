@@ -1,0 +1,69 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace АИС
+{
+    public partial class NewDriver : Form
+    {
+        public NewDriver()
+        {
+            InitializeComponent();
+        }
+
+        public NewDriver(DriverWindow driverWindow)
+        {
+			InitializeComponent();
+            DriverWindow = driverWindow;
+        }
+
+        public NewDriver(bool isEdit, Driver changingDriver, DriverWindow driverWindow)
+        {
+			InitializeComponent();
+            IsEdit = isEdit;
+            ChangingDriver = changingDriver;
+            DriverWindow = driverWindow;
+            Text = "Изменение данных водителя";
+			
+
+        }
+
+        public DriverWindow DriverWindow { get; set; }
+        public bool IsEdit { get; set; }
+        public Driver ChangingDriver { get; set; }
+        DialogResult Confirm()
+        {
+            return MessageBox.Show($"Имя: {name.Text}\n" +
+                 $"Телефон: {telephone.Text}\n" +
+                 $"Номер паспорта: {passportId.Text}", $"{button1.Text} клиента?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+        }
+
+        public void Clear()
+        {
+            name.Clear();
+            telephone.Clear();
+            passportId.Clear();
+        }
+
+        private void NewDriver_Load(object sender, EventArgs e)
+        {
+            if(IsEdit)
+            {
+                name.Text = ChangingDriver.Name;
+                telephone.Text = ChangingDriver.Telephone;
+                passportId.Text = ChangingDriver.PassportId;
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+			
+        }
+    }
+}
